@@ -53,6 +53,10 @@ sudo yum -y install vim nano p7zip unzip net-tools tcpdump wget nc git curl
 echo "installing java............"
 sudo yum install -y java-1.8.0-openjdk-devel
 echo "export JAVA_HOME=/usr">>/home/vagrant/.bashrc
+#/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.171-8.b10.el7_5.x86_64
+#useradd  -mG wheel admin
+#sed -i "s/%wheel\tALL=(ALL)\tALL/# %wheel\tALL=(ALL)\tALL/g" /etc/sudoers
+#sed -i "s/# %wheel\tALL=(ALL)\tNOPASSWD: ALL/%wheel\tALL=(ALL)\tNOPASSWD: ALL/g" /etc/sudoers
 echo "Java installtion completed and Docker installation stated"
 curl -fsSL https://get.docker.com/ | sh
 sudo systemctl start docker

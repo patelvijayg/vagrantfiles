@@ -86,9 +86,21 @@ rm -rf openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit
 echo "cluster up............"
 
 echo "docker pulling"
-sudo docker pull openshift/origin-control-plane:v3.10
-sudo docker pull openshift/origin-cli:v3.10
-sudo docker pull openshift/origin-node:v3.10
+#sudo docker pull openshift/origin-control-plane:v3.10
+dockerversion="v3.10"
+sudo docker pull openshift/origin-control-plane:$dockerversion
+sudo docker pull openshift/origin-cli:$dockerversion
+sudo docker pull openshift/origin-node:$dockerversion
+sudo docker pull openshift/origin-docker-builder:$dockerversion
+sudo docker pull openshift/origin-haproxy-router:$dockerversion
+sudo docker pull openshift/origin-recycler:$dockerversion
+sudo docker pull openshift/origin-deployer:$dockerversion
+sudo docker pull openshift/origin-hypershift:$dockerversion
+sudo docker pull openshift/origin-hyperkube:$dockerversion
+sudo docker pull openshift/origin-pod:$dockerversion
+sudo docker pull openshift/origin-web-console:$dockerversion
+sudo docker pull openshift/origin-docker-registry:$dockerversion
+
 echo "Please loing with root only and run oc cluster up --public-hostname $HOSTIP --routing-suffix apps.$HOSTIP.nip.io"
 sudo echo "oc cluster up --public-hostname $HOSTIP --routing-suffix apps.$HOSTIP.nip.io" > /root/ocstart.sh
 sudo chmod +x /root/ocstart.sh

@@ -1,0 +1,25 @@
+VAGRANTFILE_API_VERSION = "2"
+$script = <<-SCRIPT
+yum -y install arangodb3-debuginfo-3.3.17
+cd /etc/yum.repos.d/
+curl -OL https://download.arangodb.com/arangodb33/CentOS_7/arangodb.repo
+yum -y install arangodb3-3.3.17
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/arangodb3/arangod.conf
+ARANGODB_DEFAULT_ROOT_PASSWORD=root123 arango-secure-installation
+systemctl enable arangodb3.service
+systemctl restart arangodb3.service
+echo "user root/root123"
+SCRIPT
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	
+		config.vm.box = "openjdkDocker"
+		config.vm.define :"NDOVM" do |srvnode|
+			srvnode.vm.network :private_network, ip: "192.168.56.31"
+			srvnode.vm.network "public_network"
+			srvnode.ssh.insert_key = false
+			srvnode.vm.provider "virtualbox" do |v|
+				v.customize ["modifyvm", :id, "--memory", 1024]
+			end #Provider
+			srvnode.vm.provision "shell", inline: $script
+	end #define
+end #configure

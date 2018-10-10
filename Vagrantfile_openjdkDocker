@@ -62,9 +62,24 @@ curl -fsSL https://get.docker.com/ | sh
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker vagrant
+
 sudo docker run hello-world
 sudo docker pull ubuntu
 sudo docker pull centos
+
+echo "Docker-Compose installtion"
+#Added for Docker Compose and OC client
+sudo yum install -y python-pip
+sudo pip install -y docker-compose
+sudo yum upgrade -y python*
+
+echo "CO Client installtion"
+wget https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz
+tar -xvzf openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz
+sudo cp openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit/oc /sbin/
+sudo chmod ugo+x /sbin/oc
+rm openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit* -rf
+
 INSTALLATION
 
 

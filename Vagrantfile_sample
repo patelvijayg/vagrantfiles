@@ -4,9 +4,9 @@ echo "teting"
 SCRIPT
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	
-		config.vm.box = "openjdkDocker"
-		config.vm.define :"NDOVM" do |srvnode|
-			srvnode.vm.network :private_network, ip: "192.168.56.31"
+		config.vm.box = "centos/7"
+		config.vm.define :"centos7test" do |srvnode|
+			#srvnode.vm.network :private_network, ip: "192.168.56.201"
 			srvnode.vm.network "public_network"
 			srvnode.ssh.insert_key = false
 			srvnode.vm.provider "virtualbox" do |v|

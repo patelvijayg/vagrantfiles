@@ -16,6 +16,26 @@ db._createDatabase(DBNAME, {}, [{ username: DBUSER, passwd: DBPASS, active: true
 }
 catch(e) {print("CREATING .... error occur")}
 
+
+
+function runscript()
+{
+	try{
+var exec = require('child_process').exec, child;
+
+child = exec('dir',
+    function (error, stdout, stderr) {
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+        if (error !== null) {
+             console.log('exec error: ' + error);
+        }
+    });
+ child();
+}catch(e) {print("runscript.... error occur"+e)}
+
+}
+
 function testing(){
 
 db._useDatabase(DBNAME)
@@ -34,3 +54,4 @@ var g = Graph._create('city_grapth',[Graph._relation('roads', ['cities'], ['citi
 }
 catch(e) {print("CREATING GRAPH .... error occur"+e)}
 }
+

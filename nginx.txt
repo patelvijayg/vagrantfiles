@@ -4,6 +4,8 @@ start .\nginx.exe
 .\nginx.exe -s stop
 .\nginx.exe -s quit
 
+tasklist /fi "imagename eq nginx.exe"
+
 #nginx.conf
 worker_processes  1;
 events {

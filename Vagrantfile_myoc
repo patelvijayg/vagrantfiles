@@ -106,18 +106,6 @@ sudo echo "oc cluster up --public-hostname $HOSTIP --routing-suffix apps.$HOSTIP
 sudo chmod +x /root/ocstart.sh
 #openshift/origin-control-plane:v3.10 openshift/origin-cli:v3.10  openshift/origin-node:v3.10
 
-MONGO=$(cat <<EOF
-[mongodb-org-4.0]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc
-EOF
-)
-sudo echo "${MONGO}" > /etc/yum.repos.d/mongodb-org-4.0.repo
-sudo yum install -y mongodb-org-shell-4.0.2
-#mongo --host 172.17.0.6 --port 27017 -u "mongo" -p "mongo" --authenticationDatabase "sampledb"
 INSTALLATION
 
 
@@ -125,12 +113,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	(1..1).each do |i|
 		config.vm.box = "centos/7"
 		config.vm.define :"openshift" do |srvnode|
-			srvnode.vm.network :private_network, ip: "192.168.56.216"
+			srvnode.vm.network :private_network, ip: "192.168.56.213"
 			#srvnode.vm.network :private_network, ip: "192.168.56.20#{i}"
 			srvnode.vm.network "public_network"
 			#srvnode.ssh.insert_key = false
 			srvnode.vm.provider "virtualbox" do |v|
-				v.customize ["modifyvm", :id, "--memory", 4096]
+				v.customize ["modifyvm", :id, "--memory", 6144]
+				v.customize ["modifyvm", :id, "--cpus", 2]
 			end #Provider
 			srvnode.vm.provision "shell", inline: $sshsetup	
 			srvnode.vm.provision "shell", inline: $installation	

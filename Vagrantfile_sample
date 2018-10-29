@@ -5,12 +5,14 @@ SCRIPT
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	
 		config.vm.box = "centos/7"
-		config.vm.define :"centos7test" do |srvnode|
-			#srvnode.vm.network :private_network, ip: "192.168.56.201"
+		#config.vm.box_url = "E:/VM/vagrantfiles/myoc2.box"
+		config.vm.define :"centos7" do |srvnode|
+			srvnode.vm.network :private_network, ip: "192.168.56.217"
 			srvnode.vm.network "public_network"
 			srvnode.ssh.insert_key = false
 			srvnode.vm.provider "virtualbox" do |v|
 				v.customize ["modifyvm", :id, "--memory", 1024]
+				v.customize ["modifyvm", :id, "--cpus", 1]
 			end #Provider
 			#srvnode.vm.provision "shell", inline: $script
 	end #define
